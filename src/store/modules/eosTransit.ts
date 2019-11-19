@@ -22,6 +22,14 @@ import { vxm } from '@/store'
 // import simpleos from 'eos-transit-simpleos-provider'
 // import portisProvider from 'eos-transit-portis-provider'
 
+let {
+  VUE_APP_APP_NAME: appName,
+  VUE_APP_NETWORK_CHAIN_ID: chainId,
+  VUE_APP_NETWORK_PROTOCOL: protocol,
+  VUE_APP_NETWORK_HOST: host,
+  VUE_APP_NETWORK_PORT: port
+} = process.env
+
 @Module({ namespacedPath: 'eosTransit/' })
 export class EosTransitModule extends VuexModule {
   // We need to initialize the so called "access context" first,
@@ -32,13 +40,12 @@ export class EosTransitModule extends VuexModule {
 
   // We're using our own test network as an example here.
   @getter accessContext = initAccessContext({
-    appName: 'Bancor by EOS Nation',
+    appName: appName || '',
     network: {
-      host: 'eos.eosn.io',
-      port: 443,
-      protocol: 'https',
-      chainId:
-        'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
+      host: host || '',
+      port: Number(port),
+      protocol,
+      chainId: chainId || ''
     },
     walletProviders: [
       scatter(),
