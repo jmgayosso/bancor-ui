@@ -135,6 +135,7 @@
             </a>
             <span @click="closeModal()" class="cursor text-muted">- Close</span>
           </h6>
+          <button @click="testRequest">Probar</button>
         </b-col>
       </b-row>
     </transition>
@@ -147,6 +148,7 @@ import { vxm } from '@/store/'
 import { TokenPrice } from '@/types/bancor'
 import * as bancorx from '@/assets/_ts/bancorx'
 import { TokenInfo } from '@/assets/_ts/bancorx'
+import * as TokenApi from '@/api/TokenApi'
 
 @Component
 export default class ModalConvertLiquidity extends Vue {
@@ -189,6 +191,11 @@ export default class ModalConvertLiquidity extends Vue {
     this.timeleft = 4
     this.success = false
     this.error = false
+  }
+
+  async testRequest() {
+    alert('Hola')
+    TokenApi.testRequest()
   }
 
   closeModal() {
@@ -272,9 +279,7 @@ export default class ModalConvertLiquidity extends Vue {
                   to: 'thisisbancor',
                   quantity:
                     bancorx.tokenPrecision('BNT', this.amountBnt) + ' BNT',
-                  memo: `1,${this.convertTo.relayContract} ${
-                    this.convertTo.symbol
-                  },${tolerance},${wallet.auth.accountName}`
+                  memo: `1,${this.convertTo.relayContract} ${this.convertTo.symbol},${tolerance},${wallet.auth.accountName}`
                 }
               }
             ]
@@ -364,9 +369,7 @@ export default class ModalConvertLiquidity extends Vue {
                     ) +
                     ' ' +
                     this.convertFrom.symbol,
-                  memo: `1,${
-                    this.convertFrom.relayContract
-                  } BNT,${minReturnBnt},${wallet.auth.accountName}`
+                  memo: `1,${this.convertFrom.relayContract} BNT,${minReturnBnt},${wallet.auth.accountName}`
                 }
               }
             ]
