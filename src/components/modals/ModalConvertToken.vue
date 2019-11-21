@@ -130,6 +130,7 @@ export default class ModalConvertToken extends Vue {
     this.timeleft = 5
     this.success = false
     this.error = false
+    alert("hi count")
     let timer = setInterval(() => {
       if (this.timeleft === 6) {
         clearInterval(timer)
@@ -147,6 +148,10 @@ export default class ModalConvertToken extends Vue {
   async convert() {
     const wallet = vxm.eosTransit.wallet
     const relay = bancorx.relays[vxm.convert.convertFrom.code]
+    alert("hi")
+    console.log("Converting")
+    console.log(this.convertFrom)
+    console.log(this.convertTo)
     if (wallet && wallet.auth)
       wallet.eosApi
         .transact(
