@@ -397,8 +397,15 @@ export async function calcDualLiquidityRate(
   }
   return { from, to, bnt }
 }
-
-export const tokenDb: TokenInfo[] = [
+import TokenApi from '@/api/TokenApi'
+function getMeTokens() {
+  const Api = new TokenApi()
+  const r = Api.getTokensDummy()
+  console.log(r)
+  return r
+}
+export const tokenDb: TokenInfo[] = getMeTokens()
+export const tokenDb_: TokenInfo[] = [
   {
     relayToken: false,
     id: '5a1eb3753203d200012b8b75',

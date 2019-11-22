@@ -1,6 +1,6 @@
 import RequestApi from '@/api/RequestApi'
 import json from './dummyResponse.json'
-
+import { tokenDb_ } from '@/api/TokensDummy'
 class TokenApi {
   constructor() {
     console.log('Token Api created')
@@ -36,15 +36,29 @@ class TokenApi {
   /**
    * Get dymmy Tokens
    */
-  async getTokensDummy() {
+   getTokensDummy(): TokenInfo[] {
     const delayInMilliseconds = 1500 //1 second
 
-    return new Promise(resolve => {
-      setTimeout(function() {
-        resolve(json)
-      }, delayInMilliseconds)
-    })
+    // return new Promise(resolve => {
+    //   setTimeout(function() {
+    //     console.log(tokenDb_)
+    //     resolve(tokenDb_)
+    //   }, delayInMilliseconds)
+    //})
+    return tokenDb_
   }
 }
+
+export interface TokenInfo {
+    relayToken: boolean
+    id: string
+    name: string
+    img: string
+    tokenContract: string
+    relayContract: string
+    symbol: string
+    counterSymbol: string
+    precision: number
+  }
 
 export default TokenApi
