@@ -40,6 +40,15 @@ export default class App extends Vue {
       if (provider) vxm.eosTransit.initLogin(provider)
     }
     vxm.general.setLanguage()
+    console.log('getTokenDetails in created')
+    await vxm.tokens.getTokenDetails()
+  }
+
+  async beforeMount() {
+    // Load Tokens detail
+    console.log('getTokenDetails in before mount')
+    await vxm.tokens.getTokenDetails()
+    console.log('getTokenDetails Executed')
   }
 }
 </script>

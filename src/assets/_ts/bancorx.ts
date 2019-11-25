@@ -1,6 +1,7 @@
 import { vxm } from '@/store'
 import numeral from 'numeral'
 import apiBancor from '@/api/bancor'
+import Vue from 'vue'
 /**
  * Bancor X
  *
@@ -311,6 +312,7 @@ export async function calcDualLiquidityRate(
   amountBnt: boolean = false,
   inverse: boolean = false
 ) {
+  // await getMeTokens()
   const relayInfo = getTokenInfo(relay)
   console.log(relayInfo)
   let from = ''
@@ -398,14 +400,21 @@ export async function calcDualLiquidityRate(
   return { from, to, bnt }
 }
 import TokenApi from '@/api/TokenApi'
-function getMeTokens() {
-  const Api = new TokenApi()
-  const r = Api.getTokensDummy()
-  console.log(r)
-  return r
+let tokenDb1: TokenInfo[] = []
+export async function getMeTokens() {
+  let tokenDb1 
+  try {
+    console.log('In function vxm', Vue.vxm)
+    tokenDb1 = await vxm.tokens.tokenDetails
+  } finally {
+    return tokenDb1;
+  }
 }
-export const tokenDb: TokenInfo[] = getMeTokens()
-export const tokenDb_: TokenInfo[] = [
+getMeTokens()
+console.log('VXM', this)
+// let tokenDb: TokenInfo[] = vxm.tokens.tokensDetail
+export let tokenDb_ = tokenDb1
+export const tokenDb: TokenInfo[] = [
   {
     relayToken: false,
     id: '5a1eb3753203d200012b8b75',

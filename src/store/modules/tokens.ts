@@ -5,10 +5,11 @@ import {
   getter,
   Module
 } from 'vuex-class-component'
-import { TokenPrice } from '@/types/bancor'
+import { TokenPrice, TokenInfo } from '@/types/bancor'
 import apiBancor from '@/api/bancor'
 import { vxm } from '@/store'
 import * as bancorx from '@/assets/_ts/bancorx'
+import TokenApi from '@/api/TokenApi'
 
 @Module({ namespacedPath: 'tokens/' })
 export class TokensModule extends VuexModule {
@@ -16,6 +17,7 @@ export class TokensModule extends VuexModule {
   @getter ethTokens: TokenPrice[] = []
   @getter loadingTokens: boolean = false
   @getter ethPrice: any
+  @getter tokensDetail: TokenInfo[] = []
 
   get tokenDb() {
     let db = []
@@ -28,6 +30,11 @@ export class TokensModule extends VuexModule {
       })
     }
     return db
+  }
+
+  get tokenDetails() {
+    let tDetails: TokenInfo[] = this.tokenDetails
+    return tDetails
   }
 
   @action async getEthPrice() {
@@ -73,6 +80,23 @@ export class TokensModule extends VuexModule {
     return eos.data.data.page
   }
 
+  @action async getTokenDetails() {
+    const Api = new TokenApi()
+    // let response: TokenInfo[]= []
+    // Api.getTokensDummy().then(function(r:TokenInfo[]) {
+    //   response = r
+    //   console.log('Responsed',response)
+    //   mt = r
+    //   return response
+    // })
+    let tokenDetails: TokenInfo[] = []
+    try {
+      tokenDetails = await Api.getTokensDummy()
+    } finally {
+      this.setTokensDetail(tokenDetails)
+    }
+  }
+
   // mutations
   @mutation setTokens(t: { eos: TokenPrice[]; eth: TokenPrice[] }) {
     this.eosTokens = t.eos
@@ -83,6 +107,9 @@ export class TokensModule extends VuexModule {
   }
   @mutation setEth(eth: any) {
     this.ethPrice = eth.data.data
+  }
+  @mutation setTokensDetail(tokensDetail: TokenInfo[]) {
+    this.tokensDetail = tokensDetail
   }
 }
 export const tokens = TokensModule.ExtractVuexModule(TokensModule)

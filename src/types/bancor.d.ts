@@ -19,3 +19,15 @@ export interface Volume24h {
 export interface PriceHistory {
   [index: number]: number
 }
+
+export interface TokenInfo {
+  relayToken: boolean
+  id: string
+  name: string
+  img: string
+  tokenContract: string
+  relayContract: string
+  symbol: string
+  counterSymbol: string
+  precision: number
+}

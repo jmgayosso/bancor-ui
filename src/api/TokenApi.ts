@@ -36,16 +36,15 @@ class TokenApi {
   /**
    * Get dymmy Tokens
    */
-   getTokensDummy(): TokenInfo[] {
-    const delayInMilliseconds = 1500 //1 second
+   getTokensDummy(): Promise<TokenInfo[]> {
+    const delayInMilliseconds = 1 //1 second
 
-    // return new Promise(resolve => {
-    //   setTimeout(function() {
-    //     console.log(tokenDb_)
-    //     resolve(tokenDb_)
-    //   }, delayInMilliseconds)
-    //})
-    return tokenDb_
+    return new Promise(resolve => {
+      setTimeout(function() {
+        console.log(tokenDb_)
+        resolve(tokenDb_)
+      }, delayInMilliseconds)
+    })    
   }
 }
 
@@ -59,6 +58,6 @@ export interface TokenInfo {
     symbol: string
     counterSymbol: string
     precision: number
-  }
+}
 
 export default TokenApi
