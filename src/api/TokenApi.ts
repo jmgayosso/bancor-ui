@@ -1,6 +1,7 @@
 import RequestApi from '@/api/RequestApi'
 import tableDb from './TableDummy.json'
-import { tokenDb_ } from '@/api/TokensDummy'
+import tokenDb_ from './TableDummy.json'
+// import { tokenDb_ } from '@/api/TokensDummy'
 class TokenApi {
   constructor() {
     console.log('Token Api created')
@@ -41,8 +42,8 @@ class TokenApi {
 
     return new Promise(resolve => {
       setTimeout(function() {
-        console.log(tokenDb_)
-        resolve(tokenDb_)
+        console.log(tokenDb_.tokens)
+        resolve(tokenDb_.tokens)
       }, delayInMilliseconds)
     })    
   }
