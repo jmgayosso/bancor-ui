@@ -41,14 +41,6 @@ export default class App extends Vue {
     }
     vxm.general.setLanguage()
   }
-
-  async beforeMount() {
-    // Load Tokens detail
-    console.log('getTokenDetails in before mount')
-    // await vxm.tokens.getTokenDetails()
-    // vxm.liquidity.setFromToken(bancorx.getTokensDetailByIndex(0))
-    // vxm.liquidity.setToToken(bancorx.getTokensDetailByIndex(1))
-  }
 }
 </script>
 <style scoped lang="scss">

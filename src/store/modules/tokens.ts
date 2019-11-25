@@ -77,7 +77,12 @@ export class TokensModule extends VuexModule {
     // } catch (e) {
     //   console.log(e)
     // }
+    const Api = new TokenApi()
+    const r = await Api.getTableDummy()
+
+    return r.tokens
     return eos.data.data.page
+
   }
 
   @action async getTokenDetails() {

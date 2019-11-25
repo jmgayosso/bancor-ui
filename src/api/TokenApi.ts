@@ -1,5 +1,5 @@
 import RequestApi from '@/api/RequestApi'
-import json from './dummyResponse.json'
+import tableDb from './TableDummy.json'
 import { tokenDb_ } from '@/api/TokensDummy'
 class TokenApi {
   constructor() {
@@ -43,6 +43,20 @@ class TokenApi {
       setTimeout(function() {
         console.log(tokenDb_)
         resolve(tokenDb_)
+      }, delayInMilliseconds)
+    })    
+  }
+
+  /**
+   * Get Table Dummy
+   */
+  getTableDummy() {
+    const delayInMilliseconds = 1 //1 second
+
+    return new Promise(resolve => {
+      setTimeout(function() {
+        console.log('Table Dummy', tableDb)
+        resolve(tableDb)
       }, delayInMilliseconds)
     })    
   }
