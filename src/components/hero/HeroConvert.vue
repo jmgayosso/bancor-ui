@@ -172,6 +172,8 @@ export default class HeroConvert extends Vue {
     let amount = this.amount
     if (amount === '') {
       amount = '1'
+      console.log('fromToken', vxm.liquidity.fromToken.symbol)
+      console.log('toToken', vxm.liquidity.toToken.symbol)
       const minReturn = await bancorx.calcRate(
         vxm.liquidity.fromToken.symbol,
         vxm.liquidity.toToken.symbol,

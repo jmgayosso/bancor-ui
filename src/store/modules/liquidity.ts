@@ -56,6 +56,9 @@ export class LiquidityModule extends VuexModule {
       this.setRateLoading(false)
       return
     }
+    console.log('calcMinReturn', this.fromToken.symbol)
+    console.log('calcMinReturn', this.toToken.symbol)
+    console.log('calcMinReturn', this.amount)
     const minReturn = await bancorx.calcRate(
       this.fromToken.symbol,
       this.toToken.symbol,

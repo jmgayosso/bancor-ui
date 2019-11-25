@@ -267,6 +267,7 @@ export async function calcRate(
   const fromInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === from
   })
+  console.log('From Info ',fromInfo)
   const toInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === to
   })
@@ -281,17 +282,17 @@ export async function calcRate(
     decimalTo += '0'
   }
   // @ts-ignore
-  const endpoint = 'currencies/' + fromInfo.id + '/value'
+  const endpoint = 'currencies/' + fromInfo.tokenId + '/value'
   let params: any = {
     // @ts-ignore
-    toCurrencyId: toInfo.id,
+    toCurrencyId: toInfo.tokenId,
     fromAmount: parseFloat(amount) * parseInt('1' + decimalFrom),
     streamId: 'loadValue'
   }
   if (inverse)
     params = {
       // @ts-ignore
-      toCurrencyId: toInfo.id,
+      toCurrencyId: toInfo.tokenId,
       toAmount: parseFloat(amount) * parseInt('1' + decimalTo),
       streamId: 'loadDefaultConversionRateValue'
     }
