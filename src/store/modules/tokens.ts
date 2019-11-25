@@ -32,8 +32,8 @@ export class TokensModule extends VuexModule {
     return db
   }
 
-  get tokenDetails() {
-    let tDetails: TokenInfo[] = this.tokenDetails
+  get TokensDetails() {
+    let tDetails: TokenInfo[] = this.tokensDetail
     return tDetails
   }
 

@@ -194,19 +194,20 @@ export default class ModalConvertLiquidity extends Vue {
   }
 
   async testRequest() {
-    const Api = new TokenApi()
-    //const params = {offset, limit, orderBy, sortOrder}
-    const params = {
-      league_contest_type_id: 2,
-      contest_access_type: '',
-      sort_field: 'season_scheduled_date',
-      sort_order: 'ASC',
-      limit: 20,
-      offset: 0,
-      league_id: 1
-    }
-    const response = await Api.getTokensDummy()
-    console.log(response)
+    // const Api = new TokenApi()
+    // //const params = {offset, limit, orderBy, sortOrder}
+    // const params = {
+    //   league_contest_type_id: 2,
+    //   contest_access_type: '',
+    //   sort_field: 'season_scheduled_date',
+    //   sort_order: 'ASC',
+    //   limit: 20,
+    //   offset: 0,
+    //   league_id: 1
+    // }
+    // const response = await Api.getTokensDummy()
+    // console.log(response)
+    bancorx.getTokensDetail()
   }
 
   closeModal() {

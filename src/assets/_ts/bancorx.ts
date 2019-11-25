@@ -67,6 +67,7 @@ export async function relayBalances(from: string, to: string) {
   const relayBnt = relays.BNT
 
   // Get Relay Balance FROM
+  console.log('Relay vxm', vxm)
   const balanceFrom = parseFloat(
     await vxm.eosTransit.accessContext.eosRpc.get_currency_balance(
       relayFrom.code,
@@ -401,19 +402,32 @@ export async function calcDualLiquidityRate(
 }
 import TokenApi from '@/api/TokenApi'
 let tokenDb1: TokenInfo[] = []
-export async function getMeTokens() {
-  let tokenDb1 
+/**
+ * Get tokens detail from the store
+ */
+export function getTokensDetail(): TokenInfo[] {
+  let tokensDetails: TokenInfo[] = []
   try {
-    console.log('In function vxm', Vue.vxm)
-    tokenDb1 = await vxm.tokens.tokenDetails
+    console.log('getTokensDetail bancorx', vxm)
+    tokensDetails = vxm.tokens.TokensDetails
+    tokenDb1 = tokensDetails
   } finally {
-    return tokenDb1;
+    return tokensDetails
   }
 }
-getMeTokens()
-console.log('VXM', this)
+
+export let tokenDbE = tokenDb1
+
+/**
+ * Get tokens detail from the store by index
+ */
+export function getTokensDetailByIndex(index: number): TokenInfo {
+  return getTokensDetail()[index]
+  //return tokenDb[index]
+}
+
+// getMeTokens()
 // let tokenDb: TokenInfo[] = vxm.tokens.tokensDetail
-export let tokenDb_ = tokenDb1
 export const tokenDb: TokenInfo[] = [
   {
     relayToken: false,

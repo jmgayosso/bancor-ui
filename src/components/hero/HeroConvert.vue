@@ -215,6 +215,10 @@ export default class HeroConvert extends Vue {
   async created() {
     await this.conversionRate()
   }
+  beforeMount() {
+    vxm.liquidity.setFromToken(bancorx.getTokensDetailByIndex(0))
+    vxm.liquidity.setToToken(bancorx.getTokensDetailByIndex(1))
+  }
 }
 </script>
 
