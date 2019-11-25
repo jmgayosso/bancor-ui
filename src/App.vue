@@ -23,7 +23,7 @@ import Navigation from '@/components/layout/Navigation.vue'
 import ModalLogin from '@/components/modals/ModalLogin.vue'
 import { vxm } from '@/store/'
 import { WalletProvider } from 'eos-transit'
-
+import * as bancorx from '@/assets/_ts/bancorx'
 @Component({
   components: {
     Navigation,
@@ -45,8 +45,9 @@ export default class App extends Vue {
   async beforeMount() {
     // Load Tokens detail
     console.log('getTokenDetails in before mount')
-    await vxm.tokens.getTokenDetails()
-    console.log('getTokenDetails Executed')
+    // await vxm.tokens.getTokenDetails()
+    // vxm.liquidity.setFromToken(bancorx.getTokensDetailByIndex(0))
+    // vxm.liquidity.setToToken(bancorx.getTokensDetailByIndex(1))
   }
 }
 </script>

@@ -239,14 +239,14 @@ export function tokenPrecision(symbol: string, amount: string) {
  *
  */
 export function getTokenInfo(symbol: string): TokenInfo | false {
-  const t = tokenDb.find((t: TokenInfo) => {
+  const t = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === symbol
   })
   if (t) return t
   else return false
 }
 export function setPrecision(symbol: string, amount: number) {
-  const tokenInfo = tokenDb.find((t: TokenInfo) => {
+  const tokenInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === symbol
   })
   let decimal = ''
@@ -264,10 +264,10 @@ export async function calcRate(
   inverse: boolean = false
 ) {
   console.log(from)
-  const fromInfo = tokenDb.find((t: TokenInfo) => {
+  const fromInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === from
   })
-  const toInfo = tokenDb.find((t: TokenInfo) => {
+  const toInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === to
   })
   let decimalFrom = ''
@@ -301,9 +301,9 @@ export async function calcRate(
 }
 
 export function getTokenDb(tokens: boolean = true, relays: boolean = true) {
-  if (tokens && relays) return tokenDb
-  else if (tokens) return tokenDb.filter((t: TokenInfo) => !t.relayToken)
-  else return tokenDb.filter((t: TokenInfo) => t.relayToken)
+  if (tokens && relays) return getTokensDetail()
+  else if (tokens) return getTokensDetail().filter((t: TokenInfo) => !t.relayToken)
+  else return getTokensDetail().filter((t: TokenInfo) => t.relayToken)
 }
 
 export async function calcDualLiquidityRate(
@@ -400,8 +400,8 @@ export async function calcDualLiquidityRate(
   }
   return { from, to, bnt }
 }
-import TokenApi from '@/api/TokenApi'
-let tokenDb1: TokenInfo[] = []
+// import TokenApi from '@/api/TokenApi'
+// let tokenDb1: TokenInfo[] = []
 /**
  * Get tokens detail from the store
  */
@@ -410,13 +410,13 @@ export function getTokensDetail(): TokenInfo[] {
   try {
     console.log('getTokensDetail bancorx', vxm)
     tokensDetails = vxm.tokens.TokensDetails
-    tokenDb1 = tokensDetails
+    // tokenDb1 = tokensDetails
   } finally {
     return tokensDetails
   }
 }
 
-export let tokenDbE = tokenDb1
+// export let tokenDbE = tokenDb1
 
 /**
  * Get tokens detail from the store by index

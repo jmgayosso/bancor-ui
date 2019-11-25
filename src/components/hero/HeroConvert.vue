@@ -213,7 +213,7 @@ export default class HeroConvert extends Vue {
     await this.conversionRate()
   }
   async created() {
-    await this.conversionRate()
+    // await this.conversionRate()
   }
   async mounted() {
     await vxm.tokens.getTokenDetails()
