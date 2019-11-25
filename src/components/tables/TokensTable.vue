@@ -294,17 +294,17 @@ export default class TokensTable extends Vue {
     this.tokens = []
     for (let t of res) {
       this.tokens.push({
-        id: t.id,
-        symbol: t.code,
+        id: t.tokenId,
+        symbol: t.symbol,
         name: t.name,
-        image: t.primaryCommunityImageName,
+        image: t.img,
         img:
           'https://files.bancor.network/0.1/images/communities?imageName=' +
-          t.primaryCommunityImageName,
-        c24h: t.change24h,
-        price: t.price,
-        v24h: t.volume24h.USD,
-        liqDepth: t.liquidityDepth
+          t.img,
+        c24h: t.priceChange24,
+        price: t.priceUsd,
+        v24h: t.volumeBaseToken24,
+        liqDepth: t.liquidity
       })
     }
     return res
