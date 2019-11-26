@@ -52,7 +52,7 @@ export class TokensModule extends VuexModule {
   }
 
   // actions
-  @action async getTokens() {
+  @action async getTokens(): Promise<any> {
     let params = {
       limit: 150,
       skip: 0,
@@ -79,10 +79,8 @@ export class TokensModule extends VuexModule {
     // }
     const Api = new TokenApi()
     const r = await Api.getTableDummy()
-
     return r.tokens
-    return eos.data.data.page
-
+    // return eos.data.data.page
   }
 
   @action async getTokenDetails() {

@@ -37,7 +37,7 @@ class TokenApi {
   /**
    * Get dymmy Tokens
    */
-   getTokensDummy(): Promise<TokenInfo[]> {
+  getTokensDummy(): Promise<TokenInfo[]> {
     const delayInMilliseconds = 1 //1 second
 
     return new Promise(resolve => {
@@ -45,13 +45,13 @@ class TokenApi {
         console.log(tokenDb_.tokens)
         resolve(tokenDb_.tokens)
       }, delayInMilliseconds)
-    })    
+    })
   }
 
   /**
    * Get Table Dummy
    */
-  getTableDummy() {
+  getTableDummy(): any {
     const delayInMilliseconds = 1 //1 second
 
     return new Promise(resolve => {
@@ -59,20 +59,20 @@ class TokenApi {
         console.log('Table Dummy', tableDb)
         resolve(tableDb)
       }, delayInMilliseconds)
-    })    
+    })
   }
 }
 
 export interface TokenInfo {
-    relayToken: boolean
-    id: string
-    name: string
-    img: string
-    tokenContract: string
-    relayContract: string
-    symbol: string
-    counterSymbol: string
-    precision: number
+  relayToken: boolean
+  id: string
+  name: string
+  img: string
+  tokenContract: string
+  relayContract: string
+  symbol: string
+  counterSymbol: string
+  precision: number
 }
 
 export default TokenApi
