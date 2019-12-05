@@ -1,21 +1,19 @@
 import axios from 'axios'
 
 const baseURL = axios.create({
-  baseURL: 'https://reqres.in/api/',
-  method: 'post'
+  baseURL: 'https://us-central1-coolx-242811.cloudfunctions.net/'
+  //method: 'post'
 })
 
 async function requestApi(endpoint: string, params: any) {
   try {
-    return await baseURL.post(endpoint, {
-      params: params,
-      method: 'post'
+    return baseURL.post(endpoint, {
+      params: params
     })
-    //return await baseURL.request({
-    //baseURL: 'https://api.production.starting11.io/',
-    //url: endpoint,
-    //method: 'post'
-    //})
+    // return await baseURL.request({
+    //   url: endpoint,
+    //   method: 'post'
+    // })
   } catch (error) {
     throw error
   }

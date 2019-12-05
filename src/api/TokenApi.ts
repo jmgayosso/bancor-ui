@@ -14,8 +14,9 @@ class TokenApi {
   /**
    * Get tokens detail
    */
-  getDetails() {
-    return RequestApi('tokens/details', {})
+  async getDetails() {
+    const tokens = await RequestApi('tokens', {})
+    return tokens.data
   }
 
   /**
