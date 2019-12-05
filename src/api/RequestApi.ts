@@ -7,8 +7,13 @@ const baseURL = axios.create({
 
 async function requestApi(endpoint: string, params: any) {
   try {
+<<<<<<< HEAD
     return baseURL.post(endpoint, {
       params: params
+=======
+    return await baseURL.post(endpoint, {
+      params: params,
+>>>>>>> 0c7b5ac22f5782aab61ac5f761da89466658740c
     })
     // return await baseURL.request({
     //   url: endpoint,
