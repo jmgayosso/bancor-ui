@@ -102,6 +102,7 @@ export default class ModalSelectAll extends Vue {
 
   get tokenBalances() {
     return vxm.wallet.tokenBalances
+    //return 1
   }
 
   get searchedTokens() {
@@ -138,6 +139,7 @@ export default class ModalSelectAll extends Vue {
 
   mergeBalances() {
     let array: any[] = []
+    console.log('relays', this.relays)
     for (const relay of this.relays) {
       const balance = this.tokenBalances.find((t: any) => {
         return t.symbol === relay.symbol

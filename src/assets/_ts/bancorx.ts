@@ -409,7 +409,7 @@ export async function calcDualLiquidityRate(
 export function getTokensDetail(): TokenInfo[] {
   let tokensDetails: TokenInfo[] = []
   try {
-    console.log('getTokensDetail bancorx', vxm)
+    console.log('getTokensDetail bancorx', vxm.tokens.TokensDetails)
     tokensDetails = vxm.tokens.TokensDetails
     // tokenDb1 = tokensDetails
   } finally {

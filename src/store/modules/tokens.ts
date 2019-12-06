@@ -79,8 +79,8 @@ export class TokensModule extends VuexModule {
     // }
     const Api = new TokenApi()
     const response = await Api.getTradeSummary({})
+    //const response = await Api.getTableDummy()
     console.log('Google tokens response', response)
-    // const r = await Api.getTableDummy()
     return response.tokens
     //return r.tokens
     // return eos.data.data.page
@@ -97,9 +97,8 @@ export class TokensModule extends VuexModule {
     // })
     let tokenDetails: TokenInfo[] = []
     try {
-      const r = await Api.getDetails()
-      // console.log('response tokens google cloud', r)
-      //tokenDetails = await Api.getDetails();
+      //tokenDetails = await Api.getDetails()
+      tokenDetails = await Api.getTokensDummy()
     } finally {
       this.setTokensDetail(tokenDetails)
     }

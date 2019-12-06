@@ -289,6 +289,7 @@ export default class TokensTable extends Vue {
   }
 
   async updateTokens() {
+    //let res = await vxm.tokens.getTokens()
     let res = await vxm.tokens.getTokens()
     vxm.tokens.setTokens({ eos: res, eth: [] })
     this.tokens = []
