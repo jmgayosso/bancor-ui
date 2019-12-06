@@ -23,8 +23,9 @@ class TokenApi {
    * Get all tokens summary
    * @param {offset, limit, orderBy, sortOrder}
    */
-  getTradeSummary(params: any) {
-    return RequestApi('tokens/trade-summary', params)
+  async getTradeSummary(params: any) {
+    const tokens = await RequestApi('tokensTradeSummary', params)
+    return tokens.data
   }
 
   /**

@@ -67,7 +67,7 @@ export class TokensModule extends VuexModule {
     let eth: any
     params.blockchainType = 'eos'
     try {
-      eos = await apiBancor(endpoint, params)
+      // eos = await apiBancor(endpoint, params)
     } catch (e) {
       console.log(e)
     }
@@ -78,10 +78,11 @@ export class TokensModule extends VuexModule {
     //   console.log(e)
     // }
     const Api = new TokenApi()
-    const response = await Api.getDetails()
+    const response = await Api.getTradeSummary({})
     console.log('Google tokens response', response)
-    const r = await Api.getTableDummy()
-    return r.tokens
+    // const r = await Api.getTableDummy()
+    return response.tokens
+    //return r.tokens
     // return eos.data.data.page
   }
 
@@ -97,7 +98,7 @@ export class TokensModule extends VuexModule {
     let tokenDetails: TokenInfo[] = []
     try {
       const r = await Api.getDetails()
-      console.log('response tokens google cloud',r)
+      // console.log('response tokens google cloud', r)
       //tokenDetails = await Api.getDetails();
     } finally {
       this.setTokensDetail(tokenDetails)

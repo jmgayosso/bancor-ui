@@ -130,7 +130,7 @@
                     'text-success': token.c24h > 0
                   }"
                 >
-                  {{ numeral(token.c24h).format('0,0.00') }}%
+                  {{ token.c24h }}%
                 </td>
                 <td class="text-center font-w700">
                   <span v-if="token.price < 1">{{
@@ -306,6 +306,7 @@ export default class TokensTable extends Vue {
         v24h: t.volumeBaseToken24,
         liqDepth: t.liquidity
       })
+      console.log('24', t.priceChange24)
     }
     return res
   }
