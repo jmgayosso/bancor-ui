@@ -99,6 +99,7 @@ export class TokensModule extends VuexModule {
     try {
       //tokenDetails = await Api.getDetails()
       tokenDetails = await Api.getTokensDummy()
+      this.setTokensDetail(tokenDetails)
     } finally {
       this.setTokensDetail(tokenDetails)
     }
@@ -116,6 +117,7 @@ export class TokensModule extends VuexModule {
     this.ethPrice = eth.data.data
   }
   @mutation setTokensDetail(tokensDetail: TokenInfo[]) {
+    console.log('setToken', tokensDetail)
     this.tokensDetail = tokensDetail
   }
 }

@@ -137,9 +137,9 @@ export default class ModalSelectAll extends Vue {
     this.mergeBalances()
   }
 
-  mergeBalances() {
+  async mergeBalances() {
+    await vxm.tokens.getTokenDetails()
     let array: any[] = []
-    console.log('relays', this.relays)
     for (const relay of this.relays) {
       const balance = this.tokenBalances.find((t: any) => {
         return t.symbol === relay.symbol
@@ -180,7 +180,8 @@ export default class ModalSelectAll extends Vue {
 
   // Lifecycle hooks
   mounted() {}
-  created() {
+  async created() {
+    await vxm.tokens.getTokenDetails()
     this.mergeBalances()
     this.debouncedGetSearch = debounce(() => {
       this.searchTokens()
