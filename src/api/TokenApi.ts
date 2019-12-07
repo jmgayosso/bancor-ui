@@ -16,7 +16,7 @@ class TokenApi {
    */
   async getDetails() {
     const tokens = await RequestApi('tokens', {})
-    return tokens.data
+    return tokens.data.tokens
   }
 
   /**
@@ -33,7 +33,7 @@ class TokenApi {
    * @param {fromTokenId, toTokenId, amount }
    */
   calculateRate(params: any) {
-    return RequestApi('tokens/calculate-rate', params)
+    return RequestApi('calculateRate', params)
   }
 
   /**

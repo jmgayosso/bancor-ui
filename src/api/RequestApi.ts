@@ -7,9 +7,7 @@ const baseURL = axios.create({
 
 async function requestApi(endpoint: string, params: any) {
   try {
-    return baseURL.post(endpoint, {
-      params: params
-    })
+    return baseURL.post(endpoint, params)
     // return await baseURL.request({
     //   url: endpoint,
     //   method: 'post'

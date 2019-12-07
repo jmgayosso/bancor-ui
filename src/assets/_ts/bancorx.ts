@@ -2,6 +2,9 @@ import { vxm } from '@/store'
 import numeral from 'numeral'
 import apiBancor from '@/api/bancor'
 import Vue from 'vue'
+import { Api } from 'eosjs'
+import TokenApi from '@/api/TokenApi'
+
 /**
  * Bancor X
  *
@@ -271,6 +274,7 @@ export async function calcRate(
   const toInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === to
   })
+  console.log('To Info ',toInfo)
   let decimalFrom = ''
   let decimalTo = ''
   // @ts-ignore
@@ -285,9 +289,13 @@ export async function calcRate(
   const endpoint = 'currencies/' + fromInfo.tokenId + '/value'
   let params: any = {
     // @ts-ignore
-    toCurrencyId: toInfo.tokenId,
-    fromAmount: parseFloat(amount) * parseInt('1' + decimalFrom),
-    streamId: 'loadValue'
+    // toCurrencyId: toInfo.tokenId,
+    // fromAmount: parseFloat(amount) * parseInt('1' + decimalFrom),
+    // streamId: 'loadValue'
+    // @ts-ignore
+    toTokenId: toInfo.id,
+    fromTokenId: fromInfo.id,
+    amount: parseFloat(amount) * parseInt('1' + decimalFrom)
   }
   if (inverse)
     params = {
@@ -296,7 +304,16 @@ export async function calcRate(
       toAmount: parseFloat(amount) * parseInt('1' + decimalTo),
       streamId: 'loadDefaultConversionRateValue'
     }
-  const resp = await apiBancor(endpoint, params)
+  console.log('Params calcRate', params)
+  const Api = new TokenApi()
+  const resp = await Api.calculateRate({
+    // @ts-ignore
+    'toTokenId': toInfo.id,
+    'fromTokenId': fromInfo.id,
+    'amount': parseFloat(amount) * parseInt('1' + decimalFrom)
+  })
+  //const resp = await apiBancor(endpoint, params)
+  console.log('RESP CALCULATE RATE API', resp)
   if (inverse) return setPrecision(from, resp.data.data).toString()
   else return setPrecision(to, resp.data.data).toString()
 }
@@ -409,7 +426,7 @@ export async function calcDualLiquidityRate(
 export function getTokensDetail(): TokenInfo[] {
   let tokensDetails: TokenInfo[] = []
   try {
-    console.log('getTokensDetail bancorx', vxm.tokens.TokensDetails)
+    //console.log('getTokensDetail bancorx', vxm.tokens.TokensDetails)
     tokensDetails = vxm.tokens.TokensDetails
     // tokenDb1 = tokensDetails
   } finally {
