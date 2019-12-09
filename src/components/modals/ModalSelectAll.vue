@@ -46,11 +46,7 @@
           <token-balance-block
             :symbol="token.symbol"
             :balance="token.balance"
-            :img="
-              'https://files.bancor.network/0.1/images/communities?imageName=' +
-                token.img
-            "
-          />
+            :img="token.img" />
         </b-col>
       </b-row>
     </div>
@@ -106,6 +102,7 @@ export default class ModalSelectAll extends Vue {
 
   get tokenBalances() {
     return vxm.wallet.tokenBalances
+    //return 1
   }
 
   get searchedTokens() {
@@ -140,7 +137,8 @@ export default class ModalSelectAll extends Vue {
     this.mergeBalances()
   }
 
-  mergeBalances() {
+  async mergeBalances() {
+    //await vxm.tokens.getTokenDetails()
     let array: any[] = []
     for (const relay of this.relays) {
       const balance = this.tokenBalances.find((t: any) => {
@@ -182,7 +180,8 @@ export default class ModalSelectAll extends Vue {
 
   // Lifecycle hooks
   mounted() {}
-  created() {
+  async created() {
+    // await vxm.tokens.getTokenDetails()
     this.mergeBalances()
     this.debouncedGetSearch = debounce(() => {
       this.searchTokens()

@@ -31,7 +31,7 @@
           </transition>
           <div class="mb-3 mt-3">
             <span class="text-white font-size-sm"
-              >1 {{ tokenFrom.symbol }} =
+              >1 que{{ tokenFrom.symbol }} =
               <span v-if="!rateLoading && !loadingTokens">{{ rate }}</span
               ><span v-else><font-awesome-icon icon="circle-notch" spin/></span>
               {{ tokenTo.symbol }}</span
@@ -170,21 +170,28 @@ export default class HeroConvert extends Vue {
   async conversionRate() {
     this.rateLoading = true
     let amount = this.amount
+    console.log('rate converting', amount)
     if (amount === '') {
       amount = '1'
+      console.log('fromToken', vxm.liquidity.fromToken.symbol)
+      console.log('toToken', vxm.liquidity.toToken.symbol)
+      console.log('MinReturn', 'Calculating')
       const minReturn = await bancorx.calcRate(
         vxm.liquidity.fromToken.symbol,
         vxm.liquidity.toToken.symbol,
         amount
       )
+      console.log('MinReturn', minReturn)
       this.rate = this.numeral(
         parseFloat(minReturn) / parseFloat(amount)
       ).format('0,0.0000')
-    } else
+    } else {
+      console.log('MinReturn Second', this.minReturn)
       this.rate = this.numeral(
         parseFloat(this.minReturn) / parseFloat(amount)
       ).format('0,0.0000')
-
+    }
+    console.log('RATE', this.rate)
     this.rateLoading = false
   }
 
@@ -213,7 +220,12 @@ export default class HeroConvert extends Vue {
     await this.conversionRate()
   }
   async created() {
-    await this.conversionRate()
+    // await this.conversionRate()
+  }
+  async mounted() {
+    await vxm.tokens.getTokenDetails()
+    vxm.liquidity.setFromToken(bancorx.getTokensDetailByIndex(0))
+    vxm.liquidity.setToToken(bancorx.getTokensDetailByIndex(1))
   }
 }
 </script>

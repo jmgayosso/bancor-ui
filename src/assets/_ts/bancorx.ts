@@ -1,6 +1,10 @@
 import { vxm } from '@/store'
 import numeral from 'numeral'
 import apiBancor from '@/api/bancor'
+import Vue from 'vue'
+import { Api } from 'eosjs'
+import TokenApi from '@/api/TokenApi'
+
 /**
  * Bancor X
  *
@@ -66,6 +70,7 @@ export async function relayBalances(from: string, to: string) {
   const relayBnt = relays.BNT
 
   // Get Relay Balance FROM
+  console.log('Relay vxm', vxm)
   const balanceFrom = parseFloat(
     await vxm.eosTransit.accessContext.eosRpc.get_currency_balance(
       relayFrom.code,
@@ -237,14 +242,14 @@ export function tokenPrecision(symbol: string, amount: string) {
  *
  */
 export function getTokenInfo(symbol: string): TokenInfo | false {
-  const t = tokenDb.find((t: TokenInfo) => {
+  const t = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === symbol
   })
   if (t) return t
   else return false
 }
 export function setPrecision(symbol: string, amount: number) {
-  const tokenInfo = tokenDb.find((t: TokenInfo) => {
+  const tokenInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === symbol
   })
   let decimal = ''
@@ -262,12 +267,14 @@ export async function calcRate(
   inverse: boolean = false
 ) {
   console.log(from)
-  const fromInfo = tokenDb.find((t: TokenInfo) => {
+  const fromInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === from
   })
-  const toInfo = tokenDb.find((t: TokenInfo) => {
+  console.log('From Info ',fromInfo)
+  const toInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === to
   })
+  console.log('To Info ',toInfo)
   let decimalFrom = ''
   let decimalTo = ''
   // @ts-ignore
@@ -279,29 +286,44 @@ export async function calcRate(
     decimalTo += '0'
   }
   // @ts-ignore
-  const endpoint = 'currencies/' + fromInfo.id + '/value'
+  const endpoint = 'currencies/' + fromInfo.tokenId + '/value'
   let params: any = {
     // @ts-ignore
-    toCurrencyId: toInfo.id,
-    fromAmount: parseFloat(amount) * parseInt('1' + decimalFrom),
-    streamId: 'loadValue'
+    // toCurrencyId: toInfo.tokenId,
+    // fromAmount: parseFloat(amount) * parseInt('1' + decimalFrom),
+    // streamId: 'loadValue'
+    // @ts-ignore
+    fromTokenId: fromInfo.id,
+    // @ts-ignore
+    toTokenId: toInfo.id,
+    amount: parseFloat(amount) * parseInt('1' + decimalFrom)
   }
   if (inverse)
     params = {
       // @ts-ignore
-      toCurrencyId: toInfo.id,
+      toCurrencyId: toInfo.tokenId,
       toAmount: parseFloat(amount) * parseInt('1' + decimalTo),
       streamId: 'loadDefaultConversionRateValue'
     }
-  const resp = await apiBancor(endpoint, params)
-  if (inverse) return setPrecision(from, resp.data.data).toString()
-  else return setPrecision(to, resp.data.data).toString()
+  console.log('Params calcRate', params)
+  const Api = new TokenApi()
+  const resp = await Api.calculateRate({
+    // @ts-ignore
+    'toTokenId': toInfo.id,
+    // @ts-ignore
+    'fromTokenId': fromInfo.id,
+    'amount': parseFloat(amount) * parseInt('1' + decimalFrom)
+  })
+  //const resp = await apiBancor(endpoint, params)
+  console.log('RESP CALCULATE RATE API', resp)
+  if (inverse) return setPrecision(from, resp.data.rate).toString()
+  else return setPrecision(to, resp.data.rate).toString()
 }
 
 export function getTokenDb(tokens: boolean = true, relays: boolean = true) {
-  if (tokens && relays) return tokenDb
-  else if (tokens) return tokenDb.filter((t: TokenInfo) => !t.relayToken)
-  else return tokenDb.filter((t: TokenInfo) => t.relayToken)
+  if (tokens && relays) return getTokensDetail()
+  else if (tokens) return getTokensDetail().filter((t: TokenInfo) => !t.relayToken)
+  else return getTokensDetail().filter((t: TokenInfo) => t.relayToken)
 }
 
 export async function calcDualLiquidityRate(
@@ -311,6 +333,7 @@ export async function calcDualLiquidityRate(
   amountBnt: boolean = false,
   inverse: boolean = false
 ) {
+  // await getMeTokens()
   const relayInfo = getTokenInfo(relay)
   console.log(relayInfo)
   let from = ''
@@ -397,7 +420,34 @@ export async function calcDualLiquidityRate(
   }
   return { from, to, bnt }
 }
+// import TokenApi from '@/api/TokenApi'
+// let tokenDb1: TokenInfo[] = []
+/**
+ * Get tokens detail from the store
+ */
+export function getTokensDetail(): TokenInfo[] {
+  let tokensDetails: TokenInfo[] = []
+  try {
+    //console.log('getTokensDetail bancorx', vxm.tokens.TokensDetails)
+    tokensDetails = vxm.tokens.TokensDetails
+    // tokenDb1 = tokensDetails
+  } finally {
+    return tokensDetails
+  }
+}
 
+// export let tokenDbE = tokenDb1
+
+/**
+ * Get tokens detail from the store by index
+ */
+export function getTokensDetailByIndex(index: number): TokenInfo {
+  return getTokensDetail()[index]
+  //return tokenDb[index]
+}
+
+// getMeTokens()
+// let tokenDb: TokenInfo[] = vxm.tokens.tokensDetail
 export const tokenDb: TokenInfo[] = [
   {
     relayToken: false,

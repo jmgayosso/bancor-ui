@@ -23,7 +23,7 @@ import Navigation from '@/components/layout/Navigation.vue'
 import ModalLogin from '@/components/modals/ModalLogin.vue'
 import { vxm } from '@/store/'
 import { WalletProvider } from 'eos-transit'
-
+import * as bancorx from '@/assets/_ts/bancorx'
 @Component({
   components: {
     Navigation,
@@ -32,6 +32,7 @@ import { WalletProvider } from 'eos-transit'
 })
 export default class App extends Vue {
   async created() {
+    //await vxm.tokens.getTokenDetails()
     const autoLogin = localStorage.getItem('autoLogin')
     if (autoLogin) {
       const provider = vxm.eosTransit.walletProviders.find(

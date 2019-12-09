@@ -5,10 +5,11 @@ import {
   getter,
   Module
 } from 'vuex-class-component'
-import { TokenPrice } from '@/types/bancor'
+import { TokenPrice, TokenInfo } from '@/types/bancor'
 import apiBancor from '@/api/bancor'
 import { vxm } from '@/store'
 import * as bancorx from '@/assets/_ts/bancorx'
+import TokenApi from '@/api/TokenApi'
 
 @Module({ namespacedPath: 'tokens/' })
 export class TokensModule extends VuexModule {
@@ -16,6 +17,7 @@ export class TokensModule extends VuexModule {
   @getter ethTokens: TokenPrice[] = []
   @getter loadingTokens: boolean = false
   @getter ethPrice: any
+  @getter tokensDetail: TokenInfo[] = []
 
   get tokenDb() {
     let db = []
@@ -28,6 +30,11 @@ export class TokensModule extends VuexModule {
       })
     }
     return db
+  }
+
+  get TokensDetails() {
+    let tDetails: TokenInfo[] = this.tokensDetail
+    return tDetails
   }
 
   @action async getEthPrice() {
@@ -45,7 +52,7 @@ export class TokensModule extends VuexModule {
   }
 
   // actions
-  @action async getTokens() {
+  @action async getTokens(): Promise<any> {
     let params = {
       limit: 150,
       skip: 0,
@@ -60,7 +67,7 @@ export class TokensModule extends VuexModule {
     let eth: any
     params.blockchainType = 'eos'
     try {
-      eos = await apiBancor(endpoint, params)
+      // eos = await apiBancor(endpoint, params)
     } catch (e) {
       console.log(e)
     }
@@ -70,7 +77,32 @@ export class TokensModule extends VuexModule {
     // } catch (e) {
     //   console.log(e)
     // }
-    return eos.data.data.page
+    const Api = new TokenApi()
+    const response = await Api.getTradeSummary({})
+    //const response = await Api.getTableDummy()
+    console.log('Google tokens response', response)
+    return response.tokens
+    //return r.tokens
+    // return eos.data.data.page
+  }
+
+  @action async getTokenDetails() {
+    const Api = new TokenApi()
+    // let response: TokenInfo[]= []
+    // Api.getTokensDummy().then(function(r:TokenInfo[]) {
+    //   response = r
+    //   console.log('Responsed',response)
+    //   mt = r
+    //   return response
+    // })
+    let tokenDetails: TokenInfo[] = []
+    try {
+      tokenDetails = await Api.getDetails()
+      //tokenDetails = await Api.getTokensDummy()
+      this.setTokensDetail(tokenDetails)
+    } finally {
+      this.setTokensDetail(tokenDetails)
+    }
   }
 
   // mutations
@@ -83,6 +115,9 @@ export class TokensModule extends VuexModule {
   }
   @mutation setEth(eth: any) {
     this.ethPrice = eth.data.data
+  }
+  @mutation setTokensDetail(tokensDetail: TokenInfo[]) {
+    this.tokensDetail = tokensDetail
   }
 }
 export const tokens = TokensModule.ExtractVuexModule(TokensModule)

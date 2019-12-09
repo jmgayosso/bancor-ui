@@ -115,7 +115,7 @@
                 <td class="d-flex justify-content-start align-items-center">
                   <img
                     class="img-avatar img-avatar-thumb img-avatar32"
-                    :src="token.img"
+                    :src="require('@/assets/media/logos/'+token.image)"
                     alt="Token Logo"
                   />
                   {{ token.symbol }}
@@ -130,7 +130,7 @@
                     'text-success': token.c24h > 0
                   }"
                 >
-                  {{ numeral(token.c24h).format('0,0.00') }}%
+                  {{ token.c24h }}%
                 </td>
                 <td class="text-center font-w700">
                   <span v-if="token.price < 1">{{
@@ -289,23 +289,23 @@ export default class TokensTable extends Vue {
   }
 
   async updateTokens() {
+    //let res = await vxm.tokens.getTokens()
     let res = await vxm.tokens.getTokens()
     vxm.tokens.setTokens({ eos: res, eth: [] })
     this.tokens = []
     for (let t of res) {
       this.tokens.push({
-        id: t.id,
-        symbol: t.code,
+        id: t.tokenId,
+        symbol: t.symbol,
         name: t.name,
-        image: t.primaryCommunityImageName,
-        img:
-          'https://files.bancor.network/0.1/images/communities?imageName=' +
-          t.primaryCommunityImageName,
-        c24h: t.change24h,
-        price: t.price,
-        v24h: t.volume24h.USD,
-        liqDepth: t.liquidityDepth
+        image: t.img,
+        img: '@/assets/media/logos/'+t.img,
+        c24h: t.priceChange24,
+        price: t.priceUsd,
+        v24h: t.volumeBaseToken24,
+        liqDepth: t.liquidity
       })
+      console.log('24', t.priceChange24)
     }
     return res
   }

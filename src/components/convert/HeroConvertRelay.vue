@@ -4,8 +4,8 @@
       <img
         class="img-avatar img-avatar-thumb cursor"
         :src="
-          'https://storage.googleapis.com/bancor-prod-file-store/images/communities/' +
-            token.img
+          require('@/assets/media/logos/' +
+            token.img)
         "
         alt="Token Logo"
         @click="openSelectTokenModal()"

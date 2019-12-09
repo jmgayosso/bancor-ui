@@ -14,8 +14,8 @@ import { TokenInfo } from '@/assets/_ts/bancorx'
 export class LiquidityModule extends VuexModule {
   @getter direction: 'from' | 'to' = 'from'
   @getter relaySelect = true
-  @getter fromToken: TokenInfo = bancorx.tokenDb[0]
-  @getter toToken: TokenInfo = bancorx.tokenDb[1]
+  @getter fromToken: TokenInfo = {} as TokenInfo
+  @getter toToken: TokenInfo = {} as TokenInfo
   @getter amount = ''
   @getter minReturn = ''
   @getter rateLoading = false
@@ -56,6 +56,9 @@ export class LiquidityModule extends VuexModule {
       this.setRateLoading(false)
       return
     }
+    console.log('calcMinReturn', this.fromToken.symbol)
+    console.log('calcMinReturn', this.toToken.symbol)
+    console.log('calcMinReturn', this.amount)
     const minReturn = await bancorx.calcRate(
       this.fromToken.symbol,
       this.toToken.symbol,
