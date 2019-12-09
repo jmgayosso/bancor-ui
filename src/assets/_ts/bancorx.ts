@@ -253,9 +253,8 @@ export function setPrecision(symbol: string, amount: number) {
     return t.symbol === symbol
   })
   let decimal = ''
-  tokenInfo.precision = 4
   // @ts-ignore
-  for (let i = 0; i < tokenInfo.precision; i++) {
+  for (let i = 0; i < tokenInfo.tokenPrecision; i++) {
     decimal += '0'
   }
   const result = amount / parseFloat('1' + decimal)
