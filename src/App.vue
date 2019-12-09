@@ -32,6 +32,7 @@ import * as bancorx from '@/assets/_ts/bancorx'
 })
 export default class App extends Vue {
   async created() {
+    //await vxm.tokens.getTokenDetails()
     const autoLogin = localStorage.getItem('autoLogin')
     if (autoLogin) {
       const provider = vxm.eosTransit.walletProviders.find(

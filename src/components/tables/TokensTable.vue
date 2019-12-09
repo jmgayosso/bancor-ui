@@ -115,7 +115,7 @@
                 <td class="d-flex justify-content-start align-items-center">
                   <img
                     class="img-avatar img-avatar-thumb img-avatar32"
-                    :src="token.img"
+                    :src="require('@/assets/media/logos/'+token.image)"
                     alt="Token Logo"
                   />
                   {{ token.symbol }}
@@ -299,9 +299,7 @@ export default class TokensTable extends Vue {
         symbol: t.symbol,
         name: t.name,
         image: t.img,
-        img:
-          'https://files.bancor.network/0.1/images/communities?imageName=' +
-          t.img,
+        img: '@/assets/media/logos/'+t.img,
         c24h: t.priceChange24,
         price: t.priceUsd,
         v24h: t.volumeBaseToken24,

@@ -185,11 +185,12 @@ export default class HeroConvert extends Vue {
       this.rate = this.numeral(
         parseFloat(minReturn) / parseFloat(amount)
       ).format('0,0.0000')
-    } else
+    } else {
+      console.log('MinReturn Second', this.minReturn)
       this.rate = this.numeral(
         parseFloat(this.minReturn) / parseFloat(amount)
       ).format('0,0.0000')
-
+    }
     console.log('RATE', this.rate)
     this.rateLoading = false
   }
