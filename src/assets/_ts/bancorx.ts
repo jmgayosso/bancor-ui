@@ -253,6 +253,7 @@ export function setPrecision(symbol: string, amount: number) {
     return t.symbol === symbol
   })
   let decimal = ''
+  tokenInfo.precision = 4
   // @ts-ignore
   for (let i = 0; i < tokenInfo.precision; i++) {
     decimal += '0'
@@ -278,11 +279,13 @@ export async function calcRate(
   let decimalFrom = ''
   let decimalTo = ''
   // @ts-ignore
-  for (let i = 0; i < fromInfo.precision; i++) {
+  // fromInfo.precision
+  for (let i = 0; i < 4; i++) {
     decimalFrom += '0'
   }
+  //toInfo.precision
   // @ts-ignore
-  for (let i = 0; i < toInfo.precision; i++) {
+  for (let i = 0; i < 4; i++) {
     decimalTo += '0'
   }
   // @ts-ignore

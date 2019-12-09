@@ -64,6 +64,7 @@ export class LiquidityModule extends VuexModule {
       this.toToken.symbol,
       this.amount
     )
+    console.log('minReturn Store', minReturn)
     this.setMinReturn(minReturn)
     this.setRateLoading(false)
   }
