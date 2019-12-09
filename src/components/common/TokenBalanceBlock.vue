@@ -2,7 +2,7 @@
   <div class="block">
     <div class="block-content d-flex align-items-center p-4">
       <div class="cursor">
-        <img class="img-avatar img-avatar-thumb" :src="img" alt="Token Logo" />
+        <img class="img-avatar img-avatar-thumb" :src="require('@/assets/media/logos/'+img)" alt="Token Logo" />
       </div>
       <div class="ml-4 text-left cursor">
         <h3 class="mb-0 mt-0">{{ symbol }}</h3>
