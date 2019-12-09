@@ -293,8 +293,9 @@ export async function calcRate(
     // fromAmount: parseFloat(amount) * parseInt('1' + decimalFrom),
     // streamId: 'loadValue'
     // @ts-ignore
-    toTokenId: toInfo.id,
     fromTokenId: fromInfo.id,
+    // @ts-ignore
+    toTokenId: toInfo.id,
     amount: parseFloat(amount) * parseInt('1' + decimalFrom)
   }
   if (inverse)
@@ -309,13 +310,14 @@ export async function calcRate(
   const resp = await Api.calculateRate({
     // @ts-ignore
     'toTokenId': toInfo.id,
+    // @ts-ignore
     'fromTokenId': fromInfo.id,
     'amount': parseFloat(amount) * parseInt('1' + decimalFrom)
   })
   //const resp = await apiBancor(endpoint, params)
   console.log('RESP CALCULATE RATE API', resp)
-  if (inverse) return setPrecision(from, resp.data.data).toString()
-  else return setPrecision(to, resp.data.data).toString()
+  if (inverse) return setPrecision(from, resp.data.rate).toString()
+  else return setPrecision(to, resp.data.rate).toString()
 }
 
 export function getTokenDb(tokens: boolean = true, relays: boolean = true) {

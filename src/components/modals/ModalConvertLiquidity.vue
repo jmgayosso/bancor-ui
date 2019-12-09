@@ -410,6 +410,8 @@ export default class ModalConvertLiquidity extends Vue {
         })
   }
   async convert() {
+    const {VUE_APP_CONTRACT_USER: to_contract} = process.env
+
     const tolerance = bancorx.tokenPrecision(
       this.convertTo.symbol,
       (parseFloat(this.minReturn) * 0.98).toString()
@@ -431,7 +433,7 @@ export default class ModalConvertLiquidity extends Vue {
                 ],
                 data: {
                   from: wallet.auth.accountName,
-                  to: 'thisisbancor',
+                  to: to_contract,
                   quantity:
                     bancorx.tokenPrecision(
                       this.convertFrom.symbol,
