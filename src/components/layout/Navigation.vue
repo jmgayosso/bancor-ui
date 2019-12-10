@@ -14,18 +14,18 @@
             <font-awesome-icon icon="ellipsis-v" fixed-width />
           </template>
           <div class="px-2 font-size-sm">
-            <b-dropdown-item :to="{ name: 'Tokens' }">
+            <!-- <b-dropdown-item :to="{ name: 'Tokens' }">
               <font-awesome-icon icon="exchange-alt" fixed-width class="mr-2" />
               Convert
-            </b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'Relays' }">
+            </b-dropdown-item> -->
+            <!-- <b-dropdown-item :to="{ name: 'Relays' }">
               <font-awesome-icon icon="star-of-life" fixed-width class="mr-2" />
               Relays
             </b-dropdown-item>
             <b-dropdown-item :to="{ name: 'Wallet' }">
               <font-awesome-icon icon="wallet" fixed-width class="mr-2" />
               Wallet
-            </b-dropdown-item>
+            </b-dropdown-item> -->
           </div>
         </b-dropdown>
       </div>
@@ -33,7 +33,7 @@
 
       <!-- Center Section -->
       <div class="d-none d-md-flex align-items-center justify-content-center">
-        <b-btn
+        <!-- <b-btn
           :to="{ name: 'Tokens' }"
           variant="primary"
           size="sm"
@@ -42,8 +42,8 @@
         >
           <font-awesome-icon icon="exchange-alt" fixed-width class="mr-1" />
           Convert
-        </b-btn>
-        <b-btn
+        </b-btn> -->
+        <!-- <b-btn
           :to="{ name: 'Relays' }"
           variant="primary"
           size="sm"
@@ -70,7 +70,7 @@
           exact
         >
           <font-awesome-icon icon="wallet" fixed-width /> Wallet
-        </b-btn>
+        </b-btn> -->
       </div>
       <!-- END Center Section -->
 
