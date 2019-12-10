@@ -10,7 +10,7 @@ import * as bancorx from '@/assets/_ts/bancorx'
 import axios from 'axios'
 
 const hyperion = axios.create({
-  baseURL: 'https://mainnet.eosn.io/v2/state/'
+  baseURL: `${process.env.VUE_APP_HYPERION_URL}/v2/state/`
 })
 
 @Module({ namespacedPath: 'wallet/' })
