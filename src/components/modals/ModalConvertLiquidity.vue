@@ -16,10 +16,7 @@
           <h6 class="text-uppercase text-muted">Send</h6>
           <img
             class="img-avatar img-avatar-thumb mb-2"
-            :src="
-              'https://storage.googleapis.com/bancor-prod-file-store/images/communities/' +
-                convertFrom.img
-            "
+            :src="require('@/assets/media/logos/'+convertFrom.img)"
             alt="Token Logo"
           />
           <h2 class="mb-2">{{ amount }} {{ convertFrom.symbol }}</h2>
@@ -29,10 +26,7 @@
           <div class="d-flex align-items-center">
             <img
               class="img-avatar img-avatar-thumb"
-              :src="
-                'https://storage.googleapis.com/bancor-prod-file-store/images/communities/' +
-                  convertFrom.img
-              "
+              :src="require('@/assets/media/logos/'+convertFrom.img)"
               alt="Token Logo"
             />
             <div class="text-left ml-2">
@@ -73,10 +67,7 @@
           <h6 class="text-uppercase text-muted">Receive</h6>
           <img
             class="img-avatar img-avatar-thumb mb-2"
-            :src="
-              'https://storage.googleapis.com/bancor-prod-file-store/images/communities/' +
-                convertTo.img
-            "
+            :src="require('@/assets/media/logos/'+convertTo.img)"
             alt="Token Logo"
           />
           <h2 class="mb-2">{{ minReturn }} {{ convertTo.symbol }}</h2>
@@ -86,10 +77,7 @@
           <div class="d-flex align-items-center">
             <img
               class="img-avatar img-avatar-thumb"
-              :src="
-                'https://storage.googleapis.com/bancor-prod-file-store/images/communities/' +
-                  convertTo.img
-              "
+              :src="require('@/assets/media/logos/'+convertTo.img)"
               alt="Token Logo"
             />
             <div class="text-left ml-2">
