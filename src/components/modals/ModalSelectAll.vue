@@ -138,7 +138,7 @@ export default class ModalSelectAll extends Vue {
   }
 
   async mergeBalances() {
-    //await vxm.tokens.getTokenDetails()
+    await vxm.tokens.getTokenDetails()
     let array: any[] = []
     for (const relay of this.relays) {
       const balance = this.tokenBalances.find((t: any) => {
@@ -179,7 +179,9 @@ export default class ModalSelectAll extends Vue {
   }
 
   // Lifecycle hooks
-  mounted() {}
+  mounted() {
+    this.mergeBalances()
+  }
   async created() {
     // await vxm.tokens.getTokenDetails()
     this.mergeBalances()

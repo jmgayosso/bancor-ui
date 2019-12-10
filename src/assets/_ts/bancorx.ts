@@ -134,7 +134,6 @@ export function composeBancorMemo(
   const {VUE_APP_TOKEN_BASE: tokenBase} = process.env
   //@ts-ignore
   var mTokenBase = tokenBase.toString() 
-  console.log('Token Base', mTokenBase)
   //
   // Compose memo
   //

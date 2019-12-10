@@ -447,13 +447,15 @@ export default class ModalConvertLiquidity extends Vue {
             expireSeconds: 60
           }
         )
-        .then((resp: any) => {
+        .then(async (resp: any) => {
           this.success = resp
           this.$ga.event(
             vxm.liquidity.fromToken.symbol,
             'convert',
             vxm.liquidity.fromToken.symbol + '-' + vxm.liquidity.toToken.symbol
           )
+          // @ts-ignore
+          await vxm.wallet.getTokenBalances(wallet.auth.accountName)
         })
         .catch((error: any) => {
           this.error = error
