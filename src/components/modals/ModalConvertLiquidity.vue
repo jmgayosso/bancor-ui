@@ -114,16 +114,17 @@
           </h6>
           <h6 v-else-if="!error && success">
             <a
-              :href="'https://bloks.io/transaction/' + success.transaction_id"
+              :href="transactionURL"
               target="_blank"
               class="text-success"
+              transactionURL
             >
               SUCCESS: View {{ success.transaction_id.substring(0, 6) }} TX on
               bloks.io
             </a>
             <span @click="closeModal()" class="cursor text-muted">- Close</span>
           </h6>
-          <button @click="testRequest">Probar</button>
+          <!-- <button @click="testRequest">Probar</button> -->
         </b-col>
       </b-row>
     </transition>
@@ -146,6 +147,10 @@ export default class ModalConvertLiquidity extends Vue {
   error: any = false
 
   // computed
+  get transactionURL(): String {
+    return process.env.VUE_APP_VIEW_TRANSACTION_URL + this.success.transaction_id
+  }
+
   get convertFrom(): TokenInfo {
     return vxm.liquidity.fromToken
   }

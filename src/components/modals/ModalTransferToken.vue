@@ -16,10 +16,7 @@
           <h6 class="text-uppercase text-muted">Send</h6>
           <img
             class="img-avatar img-avatar-thumb mb-2"
-            :src="
-              'https://storage.googleapis.com/bancor-prod-file-store/images/communities/' +
-                transferToken.img
-            "
+            :src="require('@/assets/media/logos/'+transferToken.img)"
             alt="Token Logo"
           />
           <h2 class="mb-2">{{ amount }} {{ transferToken.symbol }}</h2>
@@ -62,7 +59,7 @@
           </h6>
           <h6 v-else-if="!error && success" class="text-success">
             <a
-              :href="'https://bloks.io/transaction/' + success.transaction_id"
+              :href="transactionURL"
               target="_blank"
               class="text-success"
             >
@@ -92,6 +89,10 @@ export default class ModalTransferToken extends Vue {
   error: any = false
 
   // computed
+  get transactionURL(): String {
+    return process.env.VUE_APP_VIEW_TRANSACTION_URL + this.success.transaction_id
+  }
+
   get transferToken(): TokenInfo {
     return vxm.liquidity.fromToken
   }
@@ -174,13 +175,15 @@ export default class ModalTransferToken extends Vue {
             expireSeconds: 60
           }
         )
-        .then((resp: any) => {
+        .then(async (resp: any) => {
           this.success = resp
           this.$ga.event(
             vxm.liquidity.fromToken.symbol,
             'transfer',
             this.amount
           )
+          // @ts-ignore
+          await vxm.wallet.getTokenBalances(wallet.auth.accountName)
         })
         .catch((error: any) => {
           this.error = error

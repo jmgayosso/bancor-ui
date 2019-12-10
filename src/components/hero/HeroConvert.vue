@@ -31,7 +31,7 @@
           </transition>
           <div class="mb-3 mt-3">
             <span class="text-white font-size-sm"
-              >1 que{{ tokenFrom.symbol }} =
+              >1 {{ tokenFrom.symbol }} =
               <span v-if="!rateLoading && !loadingTokens">{{ rate }}</span
               ><span v-else><font-awesome-icon icon="circle-notch" spin/></span>
               {{ tokenTo.symbol }}</span
