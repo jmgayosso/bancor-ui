@@ -232,6 +232,7 @@ export default class ModalConvertLiquidity extends Vue {
       this.convertTo.symbol,
       ((parseFloat(this.minReturn) / 2) * 0.98).toString()
     )
+    console.log('ConvertLiqAdd')
     const wallet = vxm.eosTransit.wallet
     if (wallet && wallet.auth)
       wallet.eosApi
@@ -405,6 +406,7 @@ export default class ModalConvertLiquidity extends Vue {
       (parseFloat(this.minReturn) * 0.98).toString()
     )
     const wallet = vxm.eosTransit.wallet
+
     if (wallet && wallet.auth)
       wallet.eosApi
         .transact(

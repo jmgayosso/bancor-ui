@@ -131,21 +131,25 @@ export function composeBancorMemo(
   const relayFrom: TokenInfo | false = getTokenInfo(from)
   const relayTo: TokenInfo | false = getTokenInfo(to)
   const amount = tokenPrecision(to, minReturn)
+  const {VUE_APP_TOKEN_BASE: tokenBase} = process.env
+  //@ts-ignore
+  var mTokenBase = tokenBase.toString() 
+  console.log('Token Base', mTokenBase)
   //
   // Compose memo
   //
   if (relayFrom && relayTo) {
-    if (from.includes('BNT'))
-      return `${version},${relayTo.relayContract} ${
+    if (from.includes(mTokenBase))
+      return `${version},${relayTo.converter} ${
         relayTo.symbol
       },${amount},${receiver}`
-    else if (to.includes('BNT'))
-      return `${version},${relayFrom.relayContract} ${
+    else if (to.includes(mTokenBase))
+      return `${version},${relayFrom.converter} ${
         relayTo.symbol
       },${amount},${receiver}`
     else
-      return `${version},${relayFrom.relayContract} BNT ${
-        relayTo.relayContract
+      return `${version},${relayFrom.converter} ${tokenBase} ${
+        relayTo.converter
       } ${relayTo.symbol},${amount},${receiver}`
   } else return
 }
@@ -222,7 +226,7 @@ export function bancorQuickConvert(
 export function tokenPrecision(symbol: string, amount: string) {
   let decimal = ''
   //@ts-ignore
-  for (let i = 0; i < getTokenInfo(symbol).precision; i++) {
+  for (let i = 0; i < getTokenInfo(symbol).tokenPrecision; i++) {
     decimal += '0'
   }
   let numeralAmount = numeral(amount).format('0.' + decimal)
@@ -1479,6 +1483,7 @@ export interface TokenInfo {
   symbol: string
   counterSymbol: string
   precision: number
+  converter?: string
 }
 
 export interface Relay {
