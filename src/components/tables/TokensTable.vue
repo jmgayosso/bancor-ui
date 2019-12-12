@@ -130,7 +130,7 @@
                     'text-success': token.c24h > 0
                   }"
                 >
-                  {{ token.c24h }}%
+                  {{ parseFloat(token.c24h).toFixed(4) }}%
                 </td>
                 <td class="text-center font-w700">
                   <span v-if="token.price < 1">{{
