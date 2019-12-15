@@ -115,7 +115,7 @@
                   {{ numeral(token.v24h).format('$0,0') }}
                 </td>
                 <td class="text-right font-w700">
-                  {{ numeral(token.liqDepth * ethPrice).format('$0,0') }}
+                  {{ numeral(token.liqDepth).format('$0,0') }}
                 </td>
                 <td class="text-right font-w700">{{ token.fee }}%</td>
                 <td class="text-right">
