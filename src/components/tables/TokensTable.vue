@@ -115,7 +115,7 @@
                 <td class="d-flex justify-content-start align-items-center">
                   <img
                     class="img-avatar img-avatar-thumb img-avatar32"
-                    :src="require('@/assets/media/logos/'+token.image)"
+                    :src="require('@/assets/media/logos/' + token.image)"
                     alt="Token Logo"
                   />
                   {{ token.symbol }}
@@ -144,7 +144,7 @@
                   {{ numeral(token.v24h).format('$0,0') }}
                 </td>
                 <td class="text-right d-none d-md-table-cell">
-                  {{ numeral(token.liqDepth * ethPrice).format('$0,0') }}
+                  {{ numeral(token.liqDepth).format('$0,0') }}
                 </td>
                 <td class="text-right">
                   <b-btn
@@ -299,10 +299,10 @@ export default class TokensTable extends Vue {
         symbol: t.symbol,
         name: t.name,
         image: t.img,
-        img: '@/assets/media/logos/'+t.img,
+        img: '@/assets/media/logos/' + t.img,
         c24h: t.priceChange24,
         price: t.priceUsd,
-        v24h: t.volumeBaseToken24,
+        v24h: t.volumeUsd24,
         liqDepth: t.liquidity
       })
       console.log('24', t.priceChange24)
