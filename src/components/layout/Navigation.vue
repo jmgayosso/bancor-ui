@@ -7,7 +7,7 @@
         <!-- Toggle Sidebar -->
         <!-- END Toggle Sidebar -->
         <router-link :to="{ name: 'Tokens' }">
-          <img src="@/assets/media/logos/eosn.png" height="40px" class="mr-4" />
+          <img src="@/assets/media/logos/tlos.png" height="40px" class="mr-4" />
         </router-link>
         <b-dropdown size="sm" variant="dual" class="d-md-none mr-2" no-caret>
           <template slot="button-content">

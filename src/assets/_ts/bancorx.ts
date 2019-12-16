@@ -131,25 +131,25 @@ export function composeBancorMemo(
   const relayFrom: TokenInfo | false = getTokenInfo(from)
   const relayTo: TokenInfo | false = getTokenInfo(to)
   const amount = tokenPrecision(to, minReturn)
-  const {VUE_APP_TOKEN_BASE: tokenBase} = process.env
+  let { VUE_APP_BASE_TOKEN: baseToken } = process.env
+  baseToken = baseToken || '';
   //@ts-ignore
-  var mTokenBase = tokenBase.toString() 
   //
   // Compose memo
   //
   if (relayFrom && relayTo) {
-    if (from.includes(mTokenBase))
+    if (from === baseToken)
       return `${version},${relayTo.converter} ${
         relayTo.symbol
-      },${amount},${receiver}`
-    else if (to.includes(mTokenBase))
+        },${amount},${receiver}`
+    else if (to === baseToken)
       return `${version},${relayFrom.converter} ${
         relayTo.symbol
-      },${amount},${receiver}`
+        },${amount},${receiver}`
     else
-      return `${version},${relayFrom.converter} ${tokenBase} ${
+      return `${version},${relayFrom.converter} ${baseToken} ${
         relayTo.converter
-      } ${relayTo.symbol},${amount},${receiver}`
+        } ${relayTo.symbol},${amount},${receiver}`
   } else return
 }
 
@@ -182,11 +182,11 @@ export function bancorMemoLiquidity(
     if (action === 'add')
       return `${version},${
         relayInfo.relayContract
-      } ${relay},${minReturn},${receiver}`
+        } ${relay},${minReturn},${receiver}`
     else
       return `${version},${relayInfo.relayContract} ${
         relayInfo.counterSymbol
-      },${minReturn},${receiver}`
+        },${minReturn},${receiver}`
   }
 }
 
@@ -273,21 +273,21 @@ export async function calcRate(
   const fromInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === from
   })
-  console.log('From Info ',fromInfo)
+  console.log('From Info ', fromInfo)
   const toInfo = getTokensDetail().find((t: TokenInfo) => {
     return t.symbol === to
   })
-  console.log('To Info ',toInfo)
+  console.log('To Info ', toInfo)
   let decimalFrom = ''
   let decimalTo = ''
   // @ts-ignore
   // fromInfo.precision
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < fromInfo.tokenPrecision; i++) {
     decimalFrom += '0'
   }
   //toInfo.precision
   // @ts-ignore
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < toInfo.tokenPrecision; i++) {
     decimalTo += '0'
   }
   // @ts-ignore
