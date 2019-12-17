@@ -7,7 +7,7 @@
         <!-- Toggle Sidebar -->
         <!-- END Toggle Sidebar -->
         <router-link :to="{ name: 'Tokens' }">
-          <img src="@/assets/media/logos/tlos.png" height="40px" class="mr-4" />
+          <img src="@/assets/media/logos/main-icon.png" height="40px" class="mr-4" />
         </router-link>
         <b-dropdown size="sm" variant="dual" class="d-md-none mr-2" no-caret>
           <template slot="button-content">
@@ -79,7 +79,7 @@
         class="d-flex align-items-center float-right justify-content-end"
         style="width: 180px"
       >
-        <b-btn
+        <!-- <b-btn
           class="mr-2"
           v-if="isAuthenticated"
           :to="{ name: 'Wallet' }"
@@ -88,7 +88,7 @@
           exact
         >
           <font-awesome-icon icon="search" fixed-width />
-        </b-btn>
+        </b-btn> -->
         <!-- Toggle Sidebar -->
         <b-btn @click="loginAction()" variant="dual" size="sm">
           {{ loginStatus[0] }}
